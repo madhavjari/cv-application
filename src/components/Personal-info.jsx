@@ -5,6 +5,7 @@ export default function Personal() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [aboutMe, setAboutMe] = useState("");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -17,6 +18,10 @@ export default function Personal() {
   };
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
+  };
+
+  const handleAboutMeChange = (event) => {
+    setAboutMe(event.target.value);
   };
 
   const resetForm = () => {
@@ -57,6 +62,13 @@ export default function Personal() {
           id="adrress"
           value={address}
           onChange={handleAddressChange}
+        />
+        <input
+          type="text"
+          placeholder="About me"
+          id="about-me"
+          value={aboutMe}
+          onChange={handleAboutMeChange}
         />
       </div>
       <button className="reset" onClick={resetForm}>

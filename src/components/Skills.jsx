@@ -11,15 +11,21 @@ export default function Skills() {
     setShowFormSoft(true);
   };
 
-  function SkillForm() {
+  function SkillFormTech() {
     const [skill, setSkill] = useState("");
     const handleSkillChange = (event) => {
       setSkill(event.target.value);
     };
 
+    const resetForm = () => {
+      setSkill("");
+    };
+
     const handleSubmit = (event) => {
       event.preventDefault();
-      setSkill("");
+      console.log(skill);
+      setShowFormTech(false);
+      resetForm();
     };
     return (
       <form>
@@ -36,15 +42,48 @@ export default function Skills() {
       </form>
     );
   }
+
+  function SkillFormSoft() {
+    const [skill, setSkill] = useState("");
+    const handleSkillChange = (event) => {
+      setSkill(event.target.value);
+    };
+
+    const resetForm = () => {
+      setSkill("");
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log(skill);
+      setShowFormSoft(false);
+      resetForm();
+    };
+    return (
+      <form>
+        <input
+          type="text"
+          id="skill"
+          placeholder="Add a skill"
+          value={skill}
+          onChange={handleSkillChange}
+        />
+        <button type="submit" onClick={handleSubmit}>
+          Add
+        </button>
+      </form>
+    );
+  }
+
   return (
     <>
       <h2>Skills</h2>
       <h3>Technical Skills:</h3>
       <button onClick={changeShowFormTech}>Add Skill</button>
-      {showFormTech ? <SkillForm /> : null}
+      {showFormTech ? <SkillFormTech /> : null}
       <h3>Soft Skills</h3>
       <button onClick={changeShowFormSoft}>Add Skill</button>
-      {showFormSoft ? <SkillForm /> : null}
+      {showFormSoft ? <SkillFormSoft /> : null}
     </>
   );
 }

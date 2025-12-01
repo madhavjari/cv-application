@@ -22,80 +22,78 @@ const years = [];
 for (let i = currentYear; i >= startYear; i--) years.push(i);
 
 export default function WorkExperience() {
-  const [company, setCompany] = useState("");
-  const [location, setLocation] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [startMonth, setStartMonth] = useState("");
-  const [startYear, setStartYear] = useState("");
-
-  const [endMonth, setEndMonth] = useState("");
-  const [endYear, setEndYear] = useState("");
-
   const [showForm, setShowForm] = useState(false);
   const formAdd = () => {
     setShowForm(true);
   };
 
-  const handleCompanyChange = (event) => {
-    setCompany(event.target.value);
-  };
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handleStartMonthChange = (event) => {
-    setStartMonth(event.target.value);
-  };
-
-  const handleStartYearChange = (event) => {
-    setStartYear(event.target.value);
-  };
-
-  const handleEndMonthChange = (event) => {
-    setEndMonth(event.target.value);
-  };
-
-  const handleEndYearChange = (event) => {
-    setEndYear(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({
-      company,
-      location,
-      title,
-      description,
-      startMonth,
-      startYear,
-      endMonth,
-      endYear,
-    });
-    resetWorkForm();
-  };
-
-  const resetWorkForm = () => {
-    setCompany("");
-    setLocation("");
-    setTitle("");
-    setDescription("");
-    setStartMonth("");
-    setStartYear("");
-    setEndMonth("");
-    setEndYear("");
-    setShowForm(false);
-  };
-
   function WorkForm() {
+    const [company, setCompany] = useState("");
+    const [location, setLocation] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [startMonth, setStartMonth] = useState("");
+    const [startYear, setStartYear] = useState("");
+
+    const [endMonth, setEndMonth] = useState("");
+    const [endYear, setEndYear] = useState("");
+    const handleCompanyChange = (event) => {
+      setCompany(event.target.value);
+    };
+    const handleLocationChange = (event) => {
+      setLocation(event.target.value);
+    };
+
+    const handleTitleChange = (event) => {
+      setTitle(event.target.value);
+    };
+
+    const handleDescriptionChange = (event) => {
+      setDescription(event.target.value);
+    };
+
+    const handleStartMonthChange = (event) => {
+      setStartMonth(event.target.value);
+    };
+
+    const handleStartYearChange = (event) => {
+      setStartYear(event.target.value);
+    };
+
+    const handleEndMonthChange = (event) => {
+      setEndMonth(event.target.value);
+    };
+
+    const handleEndYearChange = (event) => {
+      setEndYear(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log({
+        company,
+        location,
+        title,
+        description,
+        startMonth,
+        startYear,
+        endMonth,
+        endYear,
+      });
+      resetWorkForm();
+    };
+
+    const resetWorkForm = () => {
+      setCompany("");
+      setLocation("");
+      setTitle("");
+      setDescription("");
+      setStartMonth("");
+      setStartYear("");
+      setEndMonth("");
+      setEndYear("");
+      setShowForm(false);
+    };
     return (
       <form>
         <input
