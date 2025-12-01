@@ -178,10 +178,10 @@ export default function WorkExperience() {
           ))}
         </select>
         <button type="submit" onClick={handleSubmit}>
-          Submit
+          Add
         </button>
         <button type="reset" onClick={resetWorkForm}>
-          Delete
+          Reset and close
         </button>
       </form>
     );

@@ -37,7 +37,6 @@ export default function Personal() {
           value={name}
           onChange={handleNameChange}
         />
-        <p>Name: {name}</p>
         <input
           type="email"
           placeholder="Email"
@@ -45,7 +44,6 @@ export default function Personal() {
           value={email}
           onChange={handleEmailChange}
         />
-        <p>Email: {email}</p>
         <input
           type="number"
           placeholder="Phone"
@@ -53,7 +51,6 @@ export default function Personal() {
           value={phone}
           onChange={handlePhoneChange}
         />
-        <p>Phone: {phone}</p>
         <input
           type="text"
           placeholder="Address"
@@ -61,7 +58,6 @@ export default function Personal() {
           value={address}
           onChange={handleAddressChange}
         />
-        <p>Address: {address}</p>
       </div>
       <button className="reset" onClick={resetForm}>
         Reset

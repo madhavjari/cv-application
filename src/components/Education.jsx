@@ -177,10 +177,10 @@ export default function Education() {
           ))}
         </select>
         <button type="submit" onClick={handleSubmit}>
-          Submit
+          Add
         </button>
         <button type="reset" onClick={resetEducationForm}>
-          Delete
+          Reset and close
         </button>
       </form>
     );
