@@ -23,11 +23,12 @@ for (let i = currentYear; i >= startYear; i--) years.push(i);
 
 export default function WorkExperience() {
   const [company, setCompany] = useState("");
+  const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
-  const [location, setLocation] = useState("");
+
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
 
