@@ -1,5 +1,25 @@
 import { useState } from "react";
 
+function TechSkillList({ techSkills }) {
+  return (
+    <>
+      {techSkills.map((skill) => {
+        return <li key={skill.id}>{skill.name}</li>;
+      })}
+    </>
+  );
+}
+
+function SoftSkillList({ softSkills }) {
+  return (
+    <>
+      {softSkills.map((skill) => {
+        return <li key={skill.id}>{skill.name}</li>;
+      })}
+    </>
+  );
+}
+
 function SkillForm({ onSkillChange }) {
   const [skill, setSkill] = useState("");
   const handleSkillChange = (event) => {
@@ -33,34 +53,7 @@ export default function Skills() {
   const changeShowFormSoft = () => {
     setShowFormSoft(true);
   };
-  function TechSkillList() {
-    return (
-      <>
-        {techSkills.map((skill) => {
-          return <li key={skill.id}>{skill.name}</li>;
-        })}
-      </>
-    );
-  }
 
-  function TechSkillList() {
-    return (
-      <>
-        {techSkills.map((skill) => {
-          return <li key={skill.id}>{skill.name}</li>;
-        })}
-      </>
-    );
-  }
-  function SoftSkillList() {
-    return (
-      <>
-        {softSkills.map((skill) => {
-          return <li key={skill.id}>{skill.name}</li>;
-        })}
-      </>
-    );
-  }
   const [techSkills, setTechSkills] = useState([]);
   const [techNextId, setTechNextId] = useState(1);
   const [softSkills, setSoftSkills] = useState([]);
@@ -89,11 +82,15 @@ export default function Skills() {
       <h2>Skills</h2>
       <h3>Technical Skills:</h3>
       <button onClick={changeShowFormTech}>Add Skill</button>
-      {techSkills.length !== 0 ? <TechSkillList /> : null}
+      {techSkills.length !== 0 ? (
+        <TechSkillList techSkills={techSkills} />
+      ) : null}
       {showFormTech ? <SkillForm onSkillChange={addTechSkill} /> : null}
       <h3>Soft Skills</h3>
       <button onClick={changeShowFormSoft}>Add Skill</button>
-      {softSkills.length !== 0 ? <SoftSkillList /> : null}
+      {softSkills.length !== 0 ? (
+        <SoftSkillList softSkills={softSkills} />
+      ) : null}
       {showFormSoft ? <SkillForm onSkillChange={addSoftSkill} /> : null}
     </>
   );

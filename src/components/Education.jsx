@@ -21,176 +21,176 @@ const years = [];
 
 for (let i = currentYear; i >= startYear; i--) years.push(i);
 
+function FormData({ details }) {
+  console.log(details);
+  return (
+    <>
+      {Object.entries(details).map(([key, value]) => {
+        return <li key={key}>{key + ": " + value}</li>;
+      })}
+    </>
+  );
+}
+
+function EducationFormRender({ educationForm }) {
+  return (
+    <>
+      {educationForm.map((form) => {
+        return (
+          <li key={form.id}>
+            <FormData details={form.details} />
+          </li>
+        );
+      })}
+    </>
+  );
+}
+
+function EducationForm({ setShowForm, onFormAdd }) {
+  const [formData, setFormData] = useState({
+    university: "",
+    location: "",
+    course: "",
+    grade: "",
+    startMonth: "",
+    startYear: "",
+    endMonth: "",
+    endYear: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFormAdd(formData);
+    resetEducationForm();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const resetEducationForm = () => {
+    setFormData({
+      university: "",
+      location: "",
+      course: "",
+      grade: "",
+      startMonth: "",
+      startYear: "",
+      endMonth: "",
+      endYear: "",
+    });
+    setShowForm(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="university"
+        value={formData.university}
+        placeholder="University/College Name"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="location"
+        value={formData.location}
+        placeholder="Location"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="course"
+        value={formData.course}
+        placeholder="Course"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="grade"
+        value={formData.grade}
+        placeholder="Grade"
+        onChange={handleChange}
+      />
+      <h3>Start Date</h3>
+      <select
+        name="startMonth"
+        onChange={handleChange}
+        value={formData.startMonth}
+      >
+        <option value="">--Select Month--</option>
+        {months.map((m) => (
+          <option key={m.value} value={m.value}>
+            {m.label}
+          </option>
+        ))}
+      </select>
+      <select
+        name="startYear"
+        onChange={handleChange}
+        value={formData.startYear}
+      >
+        <option value="">--Select Year--</option>
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+      <h3>End Date</h3>
+      <select name="endMonth" onChange={handleChange} value={formData.endMonth}>
+        <option value="">--Select Month--</option>
+        {months.map((m) => (
+          <option key={m.value} value={m.value}>
+            {m.label}
+          </option>
+        ))}
+      </select>
+
+      <select name="endYear" onChange={handleChange} value={formData.endYear}>
+        <option value="">--Select Year--</option>
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+      <button type="submit">Add</button>
+      <button type="reset" onClick={resetEducationForm}>
+        Reset and close
+      </button>
+    </form>
+  );
+}
+
 export default function Education() {
   const [showForm, setShowForm] = useState(false);
+  const [educationForm, setEductionForm] = useState([]);
+  const [nextId, setNextId] = useState(1);
+
+  const addEducationForm = (form) => {
+    setEductionForm((prevForm) => [...prevForm, { id: nextId, details: form }]);
+    setNextId(nextId + 1);
+  };
   const formAdd = () => {
     setShowForm(true);
   };
-  function EducationForm() {
-    const [university, setUniversity] = useState("");
-    const [location, setLocation] = useState("");
-    const [course, setCourse] = useState("");
-    const [grade, setGrade] = useState("");
-    const [startMonth, setStartMonth] = useState("");
-    const [startYear, setStartYear] = useState("");
 
-    const [endMonth, setEndMonth] = useState("");
-    const [endYear, setEndYear] = useState("");
-
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log({
-        university,
-        course,
-        grade,
-        startMonth,
-        startYear,
-        endMonth,
-        endYear,
-      });
-      resetEducationForm();
-    };
-
-    const handleUniChange = (event) => {
-      setUniversity(event.target.value);
-    };
-
-    const handleLocationChange = (event) => {
-      setLocation(event.target.value);
-    };
-
-    const handleCourseChange = (event) => {
-      setCourse(event.target.value);
-    };
-    const handleGradeChange = (event) => {
-      setGrade(event.target.value);
-    };
-    const handleStartMonthChange = (event) => {
-      setStartMonth(event.target.value);
-    };
-
-    const handleStartYearChange = (event) => {
-      setStartYear(event.target.value);
-    };
-
-    const handleEndMonthChange = (event) => {
-      setEndMonth(event.target.value);
-    };
-
-    const handleEndYearChange = (event) => {
-      setEndYear(event.target.value);
-    };
-    const resetEducationForm = () => {
-      setUniversity("");
-      setCourse("");
-      setGrade("");
-      setStartMonth("");
-      setStartYear("");
-      setEndMonth("");
-      setEndYear("");
-      setShowForm(false);
-    };
-
-    return (
-      <form>
-        <input
-          type="text"
-          id="university"
-          value={university}
-          placeholder="University/College Name"
-          onChange={handleUniChange}
-        />
-        <input
-          type="text"
-          id="location"
-          value={location}
-          placeholder="Location"
-          onChange={handleLocationChange}
-        />
-        <input
-          type="text"
-          id="course"
-          value={course}
-          placeholder="Course"
-          onChange={handleCourseChange}
-        />
-        <input
-          type="text"
-          id="grade"
-          value={grade}
-          placeholder="Grade"
-          onChange={handleGradeChange}
-        />
-        <h3>Start Date</h3>
-        <select
-          name=""
-          id="start-month"
-          onChange={handleStartMonthChange}
-          value={startMonth}
-        >
-          <option value="">--Select Month--</option>
-          {months.map((m) => (
-            <option key={m.value} value={m.value}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-        <select
-          name=""
-          id="start-year"
-          onChange={handleStartYearChange}
-          value={startYear}
-        >
-          <option value="">--Select Year--</option>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-        <h3>End Date</h3>
-        <select
-          name=""
-          id="end-month"
-          onChange={handleEndMonthChange}
-          value={endMonth}
-        >
-          <option value="">--Select Month--</option>
-          {months.map((m) => (
-            <option key={m.value} value={m.value}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-
-        <select
-          name=""
-          id="end-year"
-          onChange={handleEndYearChange}
-          value={endYear}
-        >
-          <option value="">--Select Year--</option>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-        <button type="submit" onClick={handleSubmit}>
-          Add
-        </button>
-        <button type="reset" onClick={resetEducationForm}>
-          Reset and close
-        </button>
-      </form>
-    );
-  }
   return (
     <>
       <h2>Education</h2>
       <div className="form">
         <button onClick={formAdd}>Add Education</button>
-        {showForm ? <EducationForm /> : null}
+        {educationForm.length !== 0 ? (
+          <EducationFormRender educationForm={educationForm} />
+        ) : null}
+        {showForm ? (
+          <EducationForm
+            setShowForm={setShowForm}
+            onFormAdd={addEducationForm}
+          />
+        ) : null}
       </div>
     </>
   );

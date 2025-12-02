@@ -1,19 +1,19 @@
 import { useState } from "react";
 
+function LanguageList({ languages }) {
+  return (
+    <>
+      {languages.map((language) => {
+        return <li key={language.id}>{language.name}</li>;
+      })}
+    </>
+  );
+}
+
 export default function Language() {
   const [showForm, setShowForm] = useState(false);
   const [languages, setLanguages] = useState([]);
   const [nextId, setNextId] = useState(1);
-
-  function LanguageList() {
-    return (
-      <>
-        {languages.map((language) => {
-          return <li key={language.id}>{language.name}</li>;
-        })}
-      </>
-    );
-  }
 
   const handleLanguageChange = (language) => {
     setLanguages((prevLang) => [...prevLang, { id: nextId, name: language }]);
@@ -29,7 +29,7 @@ export default function Language() {
     <>
       <h2>Language</h2>
       <button onClick={showFormChange}>Add a Language</button>
-      {languages.length !== 0 ? <LanguageList /> : null}
+      {languages.length !== 0 ? <LanguageList languages={languages} /> : null}
       {showForm ? <LanguageForm onAddLanguage={handleLanguageChange} /> : null}
     </>
   );
