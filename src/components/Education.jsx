@@ -19,7 +19,10 @@ const currentYear = new Date().getFullYear();
 const startYear = currentYear - 70;
 const years = [];
 
-for (let i = currentYear; i >= startYear; i--) years.push(i);
+for (let i = currentYear; i >= startYear; i--) {
+  if (i === currentYear) years.push("Present");
+  years.push(i);
+}
 
 function FormData({ details }) {
   return (
@@ -83,14 +86,17 @@ function EducationForm({ setShowForm, onFormAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} autoComplete="on">
+      <label htmlFor="university">University/School</label>
       <input
         type="text"
         name="university"
         value={formData.university}
-        placeholder="University/College Name"
+        placeholder="University/School Name"
         onChange={handleChange}
+        required
       />
+      <label htmlFor="location">Location</label>
       <input
         type="text"
         name="location"
@@ -98,13 +104,16 @@ function EducationForm({ setShowForm, onFormAdd }) {
         placeholder="Location"
         onChange={handleChange}
       />
+      <label htmlFor="course">Course</label>
       <input
         type="text"
         name="course"
         value={formData.course}
         placeholder="Course"
         onChange={handleChange}
+        required
       />
+      <label htmlFor="grade">Grade</label>
       <input
         type="text"
         name="grade"
@@ -112,9 +121,11 @@ function EducationForm({ setShowForm, onFormAdd }) {
         placeholder="Grade"
         onChange={handleChange}
       />
-      <h3>Start Date</h3>
+      <h3>Start Date:</h3>
+      <label htmlFor="start-month"></label>
       <select
         name="startMonth"
+        id="start-month"
         onChange={handleChange}
         value={formData.startMonth}
       >
@@ -125,10 +136,13 @@ function EducationForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
+      <label htmlFor="start-year"></label>
       <select
         name="startYear"
+        id="start-year"
         onChange={handleChange}
         value={formData.startYear}
+        required
       >
         <option value="">--Select Year--</option>
         {years.map((y) => (
@@ -138,7 +152,13 @@ function EducationForm({ setShowForm, onFormAdd }) {
         ))}
       </select>
       <h3>End Date</h3>
-      <select name="endMonth" onChange={handleChange} value={formData.endMonth}>
+      <label htmlFor="end-month"></label>
+      <select
+        name="endMonth"
+        id="end-month"
+        onChange={handleChange}
+        value={formData.endMonth}
+      >
         <option value="">--Select Month--</option>
         {months.map((m) => (
           <option key={m.value} value={m.value}>
@@ -146,8 +166,14 @@ function EducationForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
-
-      <select name="endYear" onChange={handleChange} value={formData.endYear}>
+      <label htmlFor="end-year"></label>
+      <select
+        name="endYear"
+        id="end-year"
+        onChange={handleChange}
+        value={formData.endYear}
+        required
+      >
         <option value="">--Select Year--</option>
         {years.map((y) => (
           <option key={y} value={y}>

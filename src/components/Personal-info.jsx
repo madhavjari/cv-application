@@ -1,34 +1,27 @@
 import { useState } from "react";
 
-export default function Personal() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [aboutMe, setAboutMe] = useState("");
+export default function Personal({ cvData, setCvData }) {
+  const personalData = cvData.personal;
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-  };
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-  };
-
-  const handleAboutMeChange = (event) => {
-    setAboutMe(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setCvData((prevData) => ({
+      ...prevData,
+      personal: { ...prevData.personal, [name]: value },
+    }));
   };
 
   const resetForm = () => {
-    setName("");
-    setEmail("");
-    setPhone("");
-    setAddress("");
+    setCvData((prev) => ({
+      ...prev,
+      personal: {
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        aboutMe: "",
+      },
+    }));
   };
   return (
     <>
@@ -37,38 +30,46 @@ export default function Personal() {
       <div className="form">
         <input
           type="text"
+          name="name"
           placeholder="Full name"
           id="name"
-          value={name}
-          onChange={handleNameChange}
+          onChange={handleChange}
+          value={personalData.name}
+          required
         />
         <input
           type="email"
+          name="email"
           placeholder="Email"
           id="email"
-          value={email}
-          onChange={handleEmailChange}
+          value={personalData.email}
+          onChange={handleChange}
+          required
         />
         <input
           type="number"
+          name="phone"
           placeholder="Phone"
           id="phone"
-          value={phone}
-          onChange={handlePhoneChange}
+          value={personalData.phone}
+          onChange={handleChange}
         />
         <input
           type="text"
+          name="address"
           placeholder="Address"
           id="adrress"
-          value={address}
-          onChange={handleAddressChange}
+          value={personalData.address}
+          onChange={handleChange}
         />
         <input
           type="text"
+          name="aboutMe"
           placeholder="About me"
           id="about-me"
-          value={aboutMe}
-          onChange={handleAboutMeChange}
+          value={personalData.aboutMe}
+          onChange={handleChange}
+          required
         />
       </div>
       <button className="reset" onClick={resetForm}>

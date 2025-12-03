@@ -19,7 +19,10 @@ const currentYear = new Date().getFullYear();
 const startYear = currentYear - 70;
 const years = [];
 
-for (let i = currentYear; i >= startYear; i--) years.push(i);
+for (let i = currentYear; i >= startYear; i--) {
+  if (i === currentYear) years.push("Present");
+  years.push(i);
+}
 
 function FormData({ details }) {
   return (
@@ -85,38 +88,48 @@ function WorkForm({ setShowForm, onFormAdd }) {
       <label htmlFor="company">Company:</label>
       <input
         name="company"
+        id="company"
         type="text"
         placeholder="Company Name"
         value={formData.company}
         onChange={handleChange}
+        autocomplete="organization"
+        required
       />
       <label htmlFor="location">Location:</label>
       <input
         name="location"
+        id="location"
         type="text"
         placeholder="Location"
         value={formData.location}
         onChange={handleChange}
+        required
       />
       <label htmlFor="title">Job Title:</label>
       <input
         name="title"
+        id="title"
         type="text"
         placeholder="Job Title"
         value={formData.title}
         onChange={handleChange}
+        required
       />
       <label htmlFor="description">Description:</label>
       <input
         name="description"
+        id="description"
         type="text"
         placeholder="Job Description"
         value={formData.description}
         onChange={handleChange}
       />
-      <label htmlFor="start">Start Date:</label>
+      <h3>Start Date:</h3>
+      <label htmlFor="start-month"></label>
       <select
         name="startMonth"
+        id="start-month"
         onChange={handleChange}
         value={formData.startMonth}
       >
@@ -127,11 +140,13 @@ function WorkForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
+      <label htmlFor="start-year"></label>
       <select
         name="startYear"
         id="start-year"
         onChange={handleChange}
         value={formData.startYear}
+        required
       >
         <option value="">--Select Year--</option>
         {years.map((y) => (
@@ -140,7 +155,8 @@ function WorkForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
-      <label htmlFor="end">End Date:</label>
+      <h3>End Date:</h3>
+      <label htmlFor="end-month"></label>
       <select
         name="endMonth"
         id="end-month"
@@ -154,12 +170,13 @@ function WorkForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
-
+      <label htmlFor="end-year"></label>
       <select
         name="endYear"
         id="end-year"
         onChange={handleChange}
         value={formData.endYear}
+        required
       >
         <option value="">--Select Year--</option>
         {years.map((y) => (
