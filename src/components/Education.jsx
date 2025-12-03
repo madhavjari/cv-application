@@ -22,7 +22,6 @@ const years = [];
 for (let i = currentYear; i >= startYear; i--) years.push(i);
 
 function FormData({ details }) {
-  console.log(details);
   return (
     <>
       {Object.entries(details).map(([key, value]) => {

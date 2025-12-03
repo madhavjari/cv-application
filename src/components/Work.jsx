@@ -21,176 +21,184 @@ const years = [];
 
 for (let i = currentYear; i >= startYear; i--) years.push(i);
 
-export default function WorkExperience() {
-  const [showForm, setShowForm] = useState(false);
-  const formAdd = () => {
-    setShowForm(true);
+function FormData({ details }) {
+  return (
+    <>
+      {Object.entries(details).map(([key, value]) => {
+        return <li key={key}>{key + ": " + value}</li>;
+      })}
+    </>
+  );
+}
+
+function WorkFormRender({ workData }) {
+  return (
+    <>
+      {workData.map((form) => {
+        return (
+          <li key={form.id}>
+            <FormData details={form.details} />
+          </li>
+        );
+      })}
+    </>
+  );
+}
+
+function WorkForm({ setShowForm, onFormAdd }) {
+  const [formData, setFormData] = useState({
+    company: "",
+    location: "",
+    title: "",
+    description: "",
+    startMonth: "",
+    startYear: "",
+    endMonth: "",
+    endYear: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFormAdd(formData);
+    resetWorkForm();
   };
 
-  function WorkForm() {
-    const [company, setCompany] = useState("");
-    const [location, setLocation] = useState("");
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [startMonth, setStartMonth] = useState("");
-    const [startYear, setStartYear] = useState("");
+  const resetWorkForm = () => {
+    setShowForm(false);
+    setFormData({
+      company: "",
+      location: "",
+      title: "",
+      description: "",
+      startMonth: "",
+      startYear: "",
+      endMonth: "",
+      endYear: "",
+    });
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="company">Company:</label>
+      <input
+        name="company"
+        type="text"
+        placeholder="Company Name"
+        value={formData.company}
+        onChange={handleChange}
+      />
+      <label htmlFor="location">Location:</label>
+      <input
+        name="location"
+        type="text"
+        placeholder="Location"
+        value={formData.location}
+        onChange={handleChange}
+      />
+      <label htmlFor="title">Job Title:</label>
+      <input
+        name="title"
+        type="text"
+        placeholder="Job Title"
+        value={formData.title}
+        onChange={handleChange}
+      />
+      <label htmlFor="description">Description:</label>
+      <input
+        name="description"
+        type="text"
+        placeholder="Job Description"
+        value={formData.description}
+        onChange={handleChange}
+      />
+      <label htmlFor="start">Start Date:</label>
+      <select
+        name="startMonth"
+        onChange={handleChange}
+        value={formData.startMonth}
+      >
+        <option value="">--Select Month--</option>
+        {months.map((m) => (
+          <option key={m.value} value={m.value}>
+            {m.label}
+          </option>
+        ))}
+      </select>
+      <select
+        name="startYear"
+        id="start-year"
+        onChange={handleChange}
+        value={formData.startYear}
+      >
+        <option value="">--Select Year--</option>
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="end">End Date:</label>
+      <select
+        name="endMonth"
+        id="end-month"
+        onChange={handleChange}
+        value={formData.endMonth}
+      >
+        <option value="">--Select Month--</option>
+        {months.map((m) => (
+          <option key={m.value} value={m.value}>
+            {m.label}
+          </option>
+        ))}
+      </select>
 
-    const [endMonth, setEndMonth] = useState("");
-    const [endYear, setEndYear] = useState("");
-    const handleCompanyChange = (event) => {
-      setCompany(event.target.value);
-    };
-    const handleLocationChange = (event) => {
-      setLocation(event.target.value);
-    };
+      <select
+        name="endYear"
+        id="end-year"
+        onChange={handleChange}
+        value={formData.endYear}
+      >
+        <option value="">--Select Year--</option>
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+      <button type="submit">Add</button>
+      <button type="reset" onClick={resetWorkForm}>
+        Reset and close
+      </button>
+    </form>
+  );
+}
 
-    const handleTitleChange = (event) => {
-      setTitle(event.target.value);
-    };
+export default function WorkExperience() {
+  const [showForm, setShowForm] = useState(false);
+  const [workForm, setWorkForm] = useState([]);
+  const [nextId, setNextId] = useState(1);
 
-    const handleDescriptionChange = (event) => {
-      setDescription(event.target.value);
-    };
+  const addWorkForm = (form) => {
+    setWorkForm((prevData) => [...prevData, { id: nextId, details: form }]);
+    setNextId(nextId + 1);
+  };
 
-    const handleStartMonthChange = (event) => {
-      setStartMonth(event.target.value);
-    };
-
-    const handleStartYearChange = (event) => {
-      setStartYear(event.target.value);
-    };
-
-    const handleEndMonthChange = (event) => {
-      setEndMonth(event.target.value);
-    };
-
-    const handleEndYearChange = (event) => {
-      setEndYear(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log({
-        company,
-        location,
-        title,
-        description,
-        startMonth,
-        startYear,
-        endMonth,
-        endYear,
-      });
-      resetWorkForm();
-    };
-
-    const resetWorkForm = () => {
-      setCompany("");
-      setLocation("");
-      setTitle("");
-      setDescription("");
-      setStartMonth("");
-      setStartYear("");
-      setEndMonth("");
-      setEndYear("");
-      setShowForm(false);
-    };
-    return (
-      <form>
-        <input
-          type="text"
-          placeholder="Company Name"
-          id="company"
-          onChange={handleCompanyChange}
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          id="location"
-          onChange={handleLocationChange}
-        />
-        <input
-          type="text"
-          placeholder="Job Title"
-          id="job-title"
-          onChange={handleTitleChange}
-        />
-        <input
-          type="text"
-          placeholder="Job Description"
-          id="job-description"
-          onChange={handleDescriptionChange}
-        />
-        <h3>Start Date</h3>
-        <select
-          name=""
-          id="start-month"
-          onChange={handleStartMonthChange}
-          value={startMonth}
-        >
-          <option value="">--Select Month--</option>
-          {months.map((m) => (
-            <option key={m.value} value={m.value}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-        <select
-          name=""
-          id="start-year"
-          onChange={handleStartYearChange}
-          value={startYear}
-        >
-          <option value="">--Select Year--</option>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-        <h3>End Date</h3>
-        <select
-          name=""
-          id="end-month"
-          onChange={handleEndMonthChange}
-          value={endMonth}
-        >
-          <option value="">--Select Month--</option>
-          {months.map((m) => (
-            <option key={m.value} value={m.value}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-
-        <select
-          name=""
-          id="end-year"
-          onChange={handleEndYearChange}
-          value={endYear}
-        >
-          <option value="">--Select Year--</option>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-        <button type="submit" onClick={handleSubmit}>
-          Add
-        </button>
-        <button type="reset" onClick={resetWorkForm}>
-          Reset and close
-        </button>
-      </form>
-    );
-  }
+  const formShow = () => {
+    setShowForm(true);
+  };
 
   return (
     <>
       <h2>Work Experience</h2>
       <div className="form"></div>
-      <button onClick={formAdd}>Add Work Experience</button>
-      {showForm ? <WorkForm /> : null}
+      <button onClick={formShow}>Add Work Experience</button>
+      {workForm.length > 0 ? <WorkFormRender workData={workForm} /> : null}
+      {showForm ? (
+        <WorkForm setShowForm={setShowForm} onFormAdd={addWorkForm} />
+      ) : null}
     </>
   );
 }
