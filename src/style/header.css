@@ -1,7 +1,0 @@
-header {
-  display: flex;
-}
-
-header > h1 {
-  flex: 1;
-}

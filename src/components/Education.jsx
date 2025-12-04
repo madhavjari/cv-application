@@ -87,7 +87,9 @@ function EducationForm({ setShowForm, onFormAdd }) {
 
   return (
     <form onSubmit={handleSubmit} autoComplete="on">
-      <label htmlFor="university">University/School</label>
+      <label htmlFor="university">
+        <h3>University/School* :</h3>
+      </label>
       <input
         type="text"
         name="university"
@@ -96,7 +98,9 @@ function EducationForm({ setShowForm, onFormAdd }) {
         onChange={handleChange}
         required
       />
-      <label htmlFor="location">Location</label>
+      <label htmlFor="location">
+        <h3>Location</h3>
+      </label>
       <input
         type="text"
         name="location"
@@ -104,7 +108,9 @@ function EducationForm({ setShowForm, onFormAdd }) {
         placeholder="Location"
         onChange={handleChange}
       />
-      <label htmlFor="course">Course</label>
+      <label htmlFor="course">
+        <h3>Course* :</h3>
+      </label>
       <input
         type="text"
         name="course"
@@ -113,7 +119,9 @@ function EducationForm({ setShowForm, onFormAdd }) {
         onChange={handleChange}
         required
       />
-      <label htmlFor="grade">Grade</label>
+      <label htmlFor="grade">
+        <h3>Grade</h3>
+      </label>
       <input
         type="text"
         name="grade"
@@ -121,7 +129,7 @@ function EducationForm({ setShowForm, onFormAdd }) {
         placeholder="Grade"
         onChange={handleChange}
       />
-      <h3>Start Date:</h3>
+      <h3>Start Date :</h3>
       <label htmlFor="start-month"></label>
       <select
         name="startMonth"
@@ -151,7 +159,7 @@ function EducationForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
-      <h3>End Date</h3>
+      <h3>End Date :</h3>
       <label htmlFor="end-month"></label>
       <select
         name="endMonth"

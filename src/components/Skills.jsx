@@ -27,7 +27,10 @@ function SkillForm({ onSkillChange }) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSkillChange(skill);
+    if (skill.trim() !== "") {
+      onSkillChange(skill);
+      setSkill("");
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

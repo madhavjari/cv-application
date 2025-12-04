@@ -1,0 +1,30 @@
+.form,
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+input,
+button,
+select {
+  border-radius: 0.5rem;
+  border: black solid 3px;
+  padding: 0.5rem;
+  height: 3.5rem;
+  width: 30rem;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  transition: border-color 0.4s ease-in-out;
+}
+
+button {
+  background-color: rgb(205, 205, 245);
+  cursor: pointer;
+  border: none;
+}
+
+input:focus {
+  border: rgb(16, 16, 180) solid 3px;
+  outline: none;
+}

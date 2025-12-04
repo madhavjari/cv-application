@@ -85,7 +85,9 @@ function WorkForm({ setShowForm, onFormAdd }) {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="company">Company:</label>
+      <label htmlFor="company">
+        <h3>Company* :</h3>
+      </label>
       <input
         name="company"
         id="company"
@@ -96,7 +98,9 @@ function WorkForm({ setShowForm, onFormAdd }) {
         autocomplete="organization"
         required
       />
-      <label htmlFor="location">Location:</label>
+      <label htmlFor="location">
+        <h3>Location* :</h3>
+      </label>
       <input
         name="location"
         id="location"
@@ -106,7 +110,9 @@ function WorkForm({ setShowForm, onFormAdd }) {
         onChange={handleChange}
         required
       />
-      <label htmlFor="title">Job Title:</label>
+      <label htmlFor="title">
+        <h3>Job Title* :</h3>
+      </label>
       <input
         name="title"
         id="title"
@@ -116,7 +122,9 @@ function WorkForm({ setShowForm, onFormAdd }) {
         onChange={handleChange}
         required
       />
-      <label htmlFor="description">Description:</label>
+      <label htmlFor="description">
+        <h3>Description :</h3>
+      </label>
       <input
         name="description"
         id="description"

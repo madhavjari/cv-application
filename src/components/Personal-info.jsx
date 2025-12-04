@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../style/personal.css";
 
 export default function Personal({ cvData, setCvData }) {
   const personalData = cvData.personal;
@@ -28,6 +29,9 @@ export default function Personal({ cvData, setCvData }) {
       <h1>CV Builder</h1>
       <h2>Personal Details</h2>
       <div className="form">
+        <label htmlFor="name">
+          <h3>Full Name* :</h3>
+        </label>
         <input
           type="text"
           name="name"
@@ -37,6 +41,9 @@ export default function Personal({ cvData, setCvData }) {
           value={personalData.name}
           required
         />
+        <label htmlFor="email">
+          <h3>Email* :</h3>
+        </label>
         <input
           type="email"
           name="email"
@@ -46,6 +53,9 @@ export default function Personal({ cvData, setCvData }) {
           onChange={handleChange}
           required
         />
+        <label htmlFor="phone">
+          <h3>Phone Number :</h3>
+        </label>
         <input
           type="number"
           name="phone"
@@ -54,6 +64,9 @@ export default function Personal({ cvData, setCvData }) {
           value={personalData.phone}
           onChange={handleChange}
         />
+        <label htmlFor="address">
+          <h3>Address :</h3>
+        </label>
         <input
           type="text"
           name="address"
@@ -62,6 +75,9 @@ export default function Personal({ cvData, setCvData }) {
           value={personalData.address}
           onChange={handleChange}
         />
+        <label htmlFor="aboutMe">
+          <h3>About me:</h3>
+        </label>
         <input
           type="text"
           name="aboutMe"
