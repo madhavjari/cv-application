@@ -16,7 +16,6 @@ export default function App() {
   const sectionStyle = {
     display: "flex",
     justifyContent: "center",
-    gap: "10rem",
   };
   return (
     <section style={sectionStyle}>

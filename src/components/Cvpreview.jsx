@@ -1,5 +1,36 @@
-function WorkRender({ workData }) {}
-
+function WorkRender({ workData }) {
+  return (
+    <>
+      {workData.map((form) => {
+        return (
+          <div className="work-render">
+            <h3>
+              <b>{form.details.title}</b>
+            </h3>
+            <div className="company-details">
+              <h3>
+                <i>{form.details.company + " - " + form.details.location}</i>
+              </h3>
+              <h3 className="year">
+                {(form.details.startMonth
+                  ? form.details.startMonth + " / "
+                  : "") +
+                  form.details.startYear +
+                  " - " +
+                  (form.details.endYear === "Present"
+                    ? form.details.endYear
+                    : (form.details.endMonth
+                        ? form.details.endMonth + " / "
+                        : "") + form.details.endYear)}
+              </h3>
+            </div>
+            <h3>{form.details.description ? form.details.description : ""}</h3>
+          </div>
+        );
+      })}
+    </>
+  );
+}
 export default function CvPreview({ cvData }) {
   return (
     <>
