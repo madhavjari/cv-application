@@ -6,41 +6,35 @@ import Language from "./components/Language";
 import { useState } from "react";
 import CvPreview from "./components/Cvpreview";
 import "./style/personal.css";
+import "./App.css";
 
 export default function App() {
   const [cvData, setCvData] = useState({
     personal: {},
+    work: [],
   });
   const sectionStyle = {
     display: "flex",
     justifyContent: "center",
-    gap: "20rem",
-  };
-
-  const inputStyle = {
-    margin: "1rem",
-    backgroundColor: "#f9fbfdff",
-    display: "grid",
-    gap: "1rem",
-    padding: "3rem",
-    borderRadius: "0.5rem",
-    boxShadow: "0 0 1rem rgba(0, 0, 0, 0.3)",
+    gap: "10rem",
   };
   return (
     <section style={sectionStyle}>
       <div className="input">
         <h1>Input</h1>
-        <div className="input-forms" style={inputStyle}>
+        <div className="input-forms">
           <Personal cvData={cvData} setCvData={setCvData} />
           <Education />
-          <WorkExperience />
+          <WorkExperience cvData={cvData} setCvData={setCvData} />
           <Skills />
           <Language />
         </div>
       </div>
       <div className="output">
         <h1>Preview</h1>
-        <CvPreview cvData={cvData} />
+        <div className="preview">
+          <CvPreview cvData={cvData} />
+        </div>
       </div>
     </section>
   );

@@ -1,0 +1,58 @@
+.input,
+.output {
+  max-width: 40%;
+}
+
+.input-forms,
+.preview {
+  margin: 1rem;
+  background-color: #f9fbfdff;
+  display: grid;
+  /* padding: 3rem; */
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+.input-forms {
+  padding: 3rem;
+  gap: 1rem;
+}
+
+.preview {
+  background-color: white;
+}
+
+.cv-header {
+  color: white;
+  display: grid;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #2c3e50;
+  padding: 1rem;
+}
+
+.designation,
+.about-me {
+  font-weight: 400;
+}
+
+.cv-navbar {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #1e2b36;
+}
+
+.work {
+  padding: 2rem;
+}
+
+/* 
+.name,
+.designation {
+  text-align: center;
+  margin-bottom: 1.5rem;
+} */

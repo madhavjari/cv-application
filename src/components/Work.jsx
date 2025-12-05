@@ -39,9 +39,9 @@ function WorkFormRender({ workData }) {
     <>
       {workData.map((form) => {
         return (
-          <li key={form.id}>
+          <ul key={form.id}>
             <FormData details={form.details} />
-          </li>
+          </ul>
         );
       })}
     </>
@@ -201,13 +201,16 @@ function WorkForm({ setShowForm, onFormAdd }) {
   );
 }
 
-export default function WorkExperience() {
+export default function WorkExperience({ cvData, setCvData }) {
+  const work = cvData.work;
   const [showForm, setShowForm] = useState(false);
-  const [workForm, setWorkForm] = useState([]);
   const [nextId, setNextId] = useState(1);
 
   const addWorkForm = (form) => {
-    setWorkForm((prevData) => [...prevData, { id: nextId, details: form }]);
+    setCvData((prevData) => ({
+      ...prevData,
+      work: [...prevData.work, { id: nextId, details: form }],
+    }));
     setNextId(nextId + 1);
   };
 
@@ -220,7 +223,9 @@ export default function WorkExperience() {
       <h2>Work Experience</h2>
       <div className="form"></div>
       <button onClick={formShow}>Add Work Experience</button>
-      {workForm.length > 0 ? <WorkFormRender workData={workForm} /> : null}
+      {cvData.work.length > 0 ? (
+        <WorkFormRender workData={cvData.work} />
+      ) : null}
       {showForm ? (
         <WorkForm setShowForm={setShowForm} onFormAdd={addWorkForm} />
       ) : null}

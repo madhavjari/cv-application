@@ -20,6 +20,7 @@ export default function Personal({ cvData, setCvData }) {
         email: "",
         phone: "",
         address: "",
+        currentCity: "",
         designation: "",
         aboutMe: "",
       },
@@ -72,9 +73,21 @@ export default function Personal({ cvData, setCvData }) {
           type="text"
           name="address"
           placeholder="Address"
-          id="adrress"
+          id="address"
           value={personalData.address}
           onChange={handleChange}
+        />
+        <label htmlFor="current-city">
+          <h3>Current City* :</h3>
+        </label>
+        <input
+          type="text"
+          name="currentCity"
+          placeholder="Current City"
+          id="current-city"
+          value={personalData.currentCity}
+          onChange={handleChange}
+          required
         />
         <label htmlFor="designation">
           <h3>Designation:</h3>
