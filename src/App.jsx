@@ -12,6 +12,7 @@ export default function App() {
   const [cvData, setCvData] = useState({
     personal: {},
     work: [],
+    education: [],
   });
   const sectionStyle = {
     display: "flex",
@@ -23,7 +24,7 @@ export default function App() {
         <h1>Input</h1>
         <div className="input-forms">
           <Personal cvData={cvData} setCvData={setCvData} />
-          <Education />
+          <Education cvData={cvData} setCvData={setCvData} />
           <WorkExperience cvData={cvData} setCvData={setCvData} />
           <Skills />
           <Language />

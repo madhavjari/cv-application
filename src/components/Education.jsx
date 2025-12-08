@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CvPreview from "./Cvpreview";
 
 const months = [
   { value: "01", label: "January" },
@@ -39,9 +40,9 @@ function EducationFormRender({ educationForm }) {
     <>
       {educationForm.map((form) => {
         return (
-          <li key={form.id}>
+          <ul key={form.id}>
             <FormData details={form.details} />
-          </li>
+          </ul>
         );
       })}
     </>
@@ -197,13 +198,15 @@ function EducationForm({ setShowForm, onFormAdd }) {
   );
 }
 
-export default function Education() {
+export default function Education({ cvData, setCvData }) {
   const [showForm, setShowForm] = useState(false);
-  const [educationForm, setEductionForm] = useState([]);
   const [nextId, setNextId] = useState(1);
 
   const addEducationForm = (form) => {
-    setEductionForm((prevForm) => [...prevForm, { id: nextId, details: form }]);
+    setCvData((prevData) => ({
+      ...prevData,
+      education: [...prevData.education, { id: nextId, details: form }],
+    }));
     setNextId(nextId + 1);
   };
   const formAdd = () => {
@@ -215,8 +218,8 @@ export default function Education() {
       <h2>Education</h2>
       <div className="form">
         <button onClick={formAdd}>Add Education</button>
-        {educationForm.length !== 0 ? (
-          <EducationFormRender educationForm={educationForm} />
+        {cvData.education.length !== 0 ? (
+          <EducationFormRender educationForm={cvData.education} />
         ) : null}
         {showForm ? (
           <EducationForm

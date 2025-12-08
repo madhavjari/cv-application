@@ -4,9 +4,7 @@ function WorkRender({ workData }) {
       {workData.map((form) => {
         return (
           <div className="work-render">
-            <h3>
-              <b>{form.details.title}</b>
-            </h3>
+            <h3>{form.details.title}</h3>
             <div className="company-details">
               <h3>
                 <i>{form.details.company + " - " + form.details.location}</i>
@@ -24,13 +22,50 @@ function WorkRender({ workData }) {
                         : "") + form.details.endYear)}
               </h3>
             </div>
-            <h3>{form.details.description ? form.details.description : ""}</h3>
+            <h3 className="work-desc">
+              {form.details.description ? form.details.description : ""}
+            </h3>
           </div>
         );
       })}
     </>
   );
 }
+
+function EducationRender({ educationData }) {
+  return (
+    <>
+      {educationData.map((form) => {
+        return (
+          <div className="education-render">
+            <h3>{form.details.course}</h3>
+            <div className="university-details">
+              <h3>
+                <i>{form.details.university + " - " + form.details.location}</i>
+              </h3>
+              <h3 className="year">
+                {(form.details.startMonth
+                  ? form.details.startMonth + " / "
+                  : "") +
+                  form.details.startYear +
+                  " - " +
+                  (form.details.endYear === "Present"
+                    ? form.details.endYear
+                    : (form.details.endMonth
+                        ? form.details.endMonth + " / "
+                        : "") + form.details.endYear)}
+              </h3>
+            </div>
+            <h3 className="grade">
+              {form.details.grade ? "Grade: " + form.details.grade : ""}
+            </h3>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
 export default function CvPreview({ cvData }) {
   return (
     <>
@@ -63,6 +98,10 @@ export default function CvPreview({ cvData }) {
       <div className="work">
         <h2>Work Experience</h2>
         <WorkRender workData={cvData.work} />
+      </div>
+      <div className="education">
+        <h2>Education</h2>
+        <EducationRender educationData={cvData.education} />
       </div>
     </>
   );

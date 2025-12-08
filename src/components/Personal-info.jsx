@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "../style/personal.css";
 
 export default function Personal({ cvData, setCvData }) {

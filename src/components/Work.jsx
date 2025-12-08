@@ -202,7 +202,6 @@ function WorkForm({ setShowForm, onFormAdd }) {
 }
 
 export default function WorkExperience({ cvData, setCvData }) {
-  const work = cvData.work;
   const [showForm, setShowForm] = useState(false);
   const [nextId, setNextId] = useState(1);
 

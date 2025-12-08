@@ -11,7 +11,6 @@
   margin: 1rem;
   background-color: #f9fbfdff;
   display: grid;
-  /* padding: 3rem; */
   border-radius: 0.5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
@@ -37,10 +36,6 @@
   text-wrap: wrap;
 }
 
-h3 {
-  font-weight: 400;
-}
-
 .cv-navbar {
   display: flex;
   color: white;
@@ -49,19 +44,27 @@ h3 {
   background-color: #1e2b36;
 }
 
-.work {
+.work,
+.education {
   padding: 2rem;
   width: 70%;
 }
 
-.work-render {
+.work-render,
+.education-render {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: grid;
   gap: 1rem;
 }
 
-.company-details {
+.work-desc,
+.grade {
+  font-weight: 400;
+}
+
+.company-details,
+.university-details {
   display: flex;
   justify-content: space-between;
 }
