@@ -13,6 +13,9 @@ export default function App() {
     personal: {},
     work: [],
     education: [],
+    techSkills: [],
+    softSkills: [],
+    languages: [],
   });
   const sectionStyle = {
     display: "flex",
@@ -26,8 +29,8 @@ export default function App() {
           <Personal cvData={cvData} setCvData={setCvData} />
           <Education cvData={cvData} setCvData={setCvData} />
           <WorkExperience cvData={cvData} setCvData={setCvData} />
-          <Skills />
-          <Language />
+          <Skills cvData={cvData} setCvData={setCvData} />
+          <Language cvData={cvData} setCvData={setCvData} />
         </div>
       </div>
       <div className="output">

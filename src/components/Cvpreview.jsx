@@ -66,43 +66,79 @@ function EducationRender({ educationData }) {
   );
 }
 
+function ListRender({ items }) {
+  return (
+    <ul>
+      {items.map((item) => {
+        return (
+          <h3>
+            <li key={item.id}>{item}</li>
+          </h3>
+        );
+      })}
+    </ul>
+  );
+}
+
 export default function CvPreview({ cvData }) {
   return (
     <>
       <div className="cv-header">
-        <h1 className="name">
-          {cvData.personal.name ? cvData.personal.name : "Your Name"}
-        </h1>
-        <h2 className="designation">
+        <h1>{cvData.personal.name ? cvData.personal.name : "Your Name"}</h1>
+        <h2>
           {cvData.personal.designation
             ? cvData.personal.designation
             : "Your Designation"}
         </h2>
-        <h3 className="about-me">
+        <h3>
           {cvData.personal.aboutMe
             ? cvData.personal.aboutMe
             : "Information about yourself/ what do you excel, what future holds for you,etc"}
         </h3>
       </div>
       <div className="cv-navbar">
-        <h4 className="phone">
+        <h4>
           {cvData.personal.phone ? cvData.personal.phone : "xx-xxxxxxxxx"}
         </h4>
-        <h4 className="email">
+        <h4>
           {cvData.personal.email ? cvData.personal.email : "xxxxxxxxx@xxx.com"}
         </h4>
-        <h4 className="city">
+        <h4>
           {cvData.personal.currentCity ? cvData.personal.currentCity : ""}
         </h4>
+        {cvData.personal.gender ? <h4>{cvData.personal.gender}</h4> : null}
       </div>
-      <div className="work">
-        <h2>Work Experience</h2>
-        <WorkRender workData={cvData.work} />
-      </div>
-      <div className="education">
-        <h2>Education</h2>
-        <EducationRender educationData={cvData.education} />
-      </div>
+      <article>
+        <div className="education">
+          <h2>Education</h2>
+          <div className="line"></div>
+          <EducationRender educationData={cvData.education} />
+        </div>
+        <div className="work">
+          <h2>Work Experience</h2>
+          <div className="line"></div>
+          <WorkRender workData={cvData.work} />
+        </div>
+        <div className="skills">
+          <h2>Skills</h2>
+          <div className="line"></div>
+          <h3>Technical Skills</h3>
+          <ListRender items={cvData.techSkills} />
+          <h3>Soft Skills</h3>
+          <ListRender items={cvData.softSkills} />
+        </div>
+
+        <div className="languages">
+          <h2>Languages</h2>
+          <div className="line"></div>
+          <ListRender items={cvData.languages} />
+        </div>
+        <div className="personal-address">
+          <h2>Address for communication</h2>
+          <div className="line"></div>
+          <h3>{cvData.personal.address}</h3>
+        </div>
+      </article>
     </>
   );
 }

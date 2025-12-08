@@ -18,6 +18,7 @@ export default function Personal({ cvData, setCvData }) {
         name: "",
         email: "",
         phone: "",
+        gender: "",
         address: "",
         currentCity: "",
         designation: "",
@@ -39,7 +40,7 @@ export default function Personal({ cvData, setCvData }) {
           placeholder="Full name"
           id="name"
           onChange={handleChange}
-          value={personalData.name}
+          value={personalData.name || ""}
           required
         />
         <label htmlFor="email">
@@ -50,7 +51,7 @@ export default function Personal({ cvData, setCvData }) {
           name="email"
           placeholder="Email"
           id="email"
-          value={personalData.email}
+          value={personalData.email || ""}
           onChange={handleChange}
           required
         />
@@ -62,9 +63,22 @@ export default function Personal({ cvData, setCvData }) {
           name="phone"
           placeholder="Phone"
           id="phone"
-          value={personalData.phone}
+          value={personalData.phone || ""}
           onChange={handleChange}
         />
+        <label htmlFor="gender">Gender* :</label>
+        <select
+          name="gender"
+          id="gender"
+          onChange={handleChange}
+          value={personalData.gender}
+          required
+        >
+          <option value=""></option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="">Prefer not to respond</option>
+        </select>
         <label htmlFor="address">
           <h3>Address :</h3>
         </label>
@@ -73,7 +87,7 @@ export default function Personal({ cvData, setCvData }) {
           name="address"
           placeholder="Address"
           id="address"
-          value={personalData.address}
+          value={personalData.address || ""}
           onChange={handleChange}
         />
         <label htmlFor="current-city">
@@ -84,7 +98,7 @@ export default function Personal({ cvData, setCvData }) {
           name="currentCity"
           placeholder="Current City"
           id="current-city"
-          value={personalData.currentCity}
+          value={personalData.currentCity || ""}
           onChange={handleChange}
           required
         />
@@ -96,7 +110,7 @@ export default function Personal({ cvData, setCvData }) {
           name="designation"
           placeholder="Designation"
           id="designation"
-          value={personalData.designation}
+          value={personalData.designation || ""}
           onChange={handleChange}
           required
         />
@@ -108,7 +122,7 @@ export default function Personal({ cvData, setCvData }) {
           name="aboutMe"
           placeholder="About me"
           id="about-me"
-          value={personalData.aboutMe}
+          value={personalData.aboutMe || ""}
           onChange={handleChange}
           required
         />

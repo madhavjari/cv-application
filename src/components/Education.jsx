@@ -40,9 +40,9 @@ function EducationFormRender({ educationForm }) {
     <>
       {educationForm.map((form) => {
         return (
-          <ul key={form.id}>
+          <li key={form.id}>
             <FormData details={form.details} />
-          </ul>
+          </li>
         );
       })}
     </>

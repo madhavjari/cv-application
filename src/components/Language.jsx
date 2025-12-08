@@ -4,19 +4,21 @@ function LanguageList({ languages }) {
   return (
     <>
       {languages.map((language) => {
-        return <li key={language.id}>{language.name}</li>;
+        return <li key={language.id}>{language}</li>;
       })}
     </>
   );
 }
 
-export default function Language() {
+export default function Language({ cvData, setCvData }) {
   const [showForm, setShowForm] = useState(false);
-  const [languages, setLanguages] = useState([]);
   const [nextId, setNextId] = useState(1);
 
   const handleLanguageChange = (language) => {
-    setLanguages((prevLang) => [...prevLang, { id: nextId, name: language }]);
+    setCvData((prevData) => ({
+      ...prevData,
+      languages: [...prevData.languages, language],
+    }));
     setNextId(nextId + 1);
     setShowForm(false);
   };
@@ -29,7 +31,9 @@ export default function Language() {
     <>
       <h2>Language</h2>
       <button onClick={showFormChange}>Add a Language</button>
-      {languages.length !== 0 ? <LanguageList languages={languages} /> : null}
+      {cvData.languages.length !== 0 ? (
+        <LanguageList languages={cvData.languages} />
+      ) : null}
       {showForm ? <LanguageForm onAddLanguage={handleLanguageChange} /> : null}
     </>
   );

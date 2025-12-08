@@ -1,20 +1,10 @@
 import { useState } from "react";
 
-function TechSkillList({ techSkills }) {
+function SkillList({ skills }) {
   return (
     <>
-      {techSkills.map((skill) => {
-        return <li key={skill.id}>{skill.name}</li>;
-      })}
-    </>
-  );
-}
-
-function SoftSkillList({ softSkills }) {
-  return (
-    <>
-      {softSkills.map((skill) => {
-        return <li key={skill.id}>{skill.name}</li>;
+      {skills.map((skill) => {
+        return <li key={skill.id}>{skill}</li>;
       })}
     </>
   );
@@ -46,7 +36,7 @@ function SkillForm({ onSkillChange }) {
   );
 }
 
-export default function Skills() {
+export default function Skills({ cvData, setCvData }) {
   const [showFormTech, setShowFormTech] = useState(false);
   const [showFormSoft, setShowFormSoft] = useState(false);
   const changeShowFormTech = () => {
@@ -57,42 +47,39 @@ export default function Skills() {
     setShowFormSoft(true);
   };
 
-  const [techSkills, setTechSkills] = useState([]);
   const [techNextId, setTechNextId] = useState(1);
-  const [softSkills, setSoftSkills] = useState([]);
   const [softNextId, setSoftNextId] = useState(1);
 
   const addTechSkill = (skill) => {
-    setTechSkills((prevSkill) => [
-      ...prevSkill,
-      { id: techNextId, name: skill },
-    ]);
+    setCvData((prevData) => ({
+      ...prevData,
+      techSkills: [...prevData.techSkills, skill],
+    }));
     setTechNextId(techNextId + 1);
     setShowFormTech(false);
   };
 
   const addSoftSkill = (skill) => {
-    setSoftSkills((prevSkill) => [
-      ...prevSkill,
-      { id: softNextId, name: skill },
-    ]);
+    setCvData((prevData) => ({
+      ...prevData,
+      softSkills: [...prevData.softSkills, skill],
+    }));
     setSoftNextId(softNextId + 1);
     setShowFormSoft(false);
   };
-
   return (
     <>
       <h2>Skills</h2>
       <h3>Technical Skills:</h3>
       <button onClick={changeShowFormTech}>Add Skill</button>
-      {techSkills.length !== 0 ? (
-        <TechSkillList techSkills={techSkills} />
+      {cvData.techSkills.length !== 0 ? (
+        <SkillList skills={cvData.techSkills} />
       ) : null}
       {showFormTech ? <SkillForm onSkillChange={addTechSkill} /> : null}
       <h3>Soft Skills</h3>
       <button onClick={changeShowFormSoft}>Add Skill</button>
-      {softSkills.length !== 0 ? (
-        <SoftSkillList softSkills={softSkills} />
+      {cvData.softSkills.length !== 0 ? (
+        <SkillList skills={cvData.softSkills} />
       ) : null}
       {showFormSoft ? <SkillForm onSkillChange={addSoftSkill} /> : null}
     </>
