@@ -13,7 +13,7 @@
   display: grid;
   border-radius: 0.5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
-  border: 2px solid red;
+  border: black solid 1px;
   box-sizing: border-box;
 }
 

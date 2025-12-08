@@ -28,39 +28,30 @@ for (let i = currentYear; i >= startYear; i--) {
 function FormData({ details }) {
   return (
     <>
-      {Object.entries(details).map(([key, value]) => {
-        return <li key={key}>{key + ": " + value}</li>;
-      })}
+      <h3>{details.university}</h3>
+      <h3>{details.course}</h3>
     </>
   );
 }
 
-function EducationFormRender({ educationForm }) {
+function EducationFormRender({ educationForm, setCvData }) {
   return (
     <>
       {educationForm.map((form) => {
         return (
-          <li key={form.id}>
-            <FormData details={form.details} />
-          </li>
+          <>
+            <li key={form.id}>
+              <FormData details={form.details} />
+            </li>
+            <button>Edit</button>
+          </>
         );
       })}
     </>
   );
 }
 
-function EducationForm({ setShowForm, onFormAdd }) {
-  const [formData, setFormData] = useState({
-    university: "",
-    location: "",
-    course: "",
-    grade: "",
-    startMonth: "",
-    startYear: "",
-    endMonth: "",
-    endYear: "",
-  });
-
+function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     onFormAdd(formData);
@@ -199,6 +190,16 @@ function EducationForm({ setShowForm, onFormAdd }) {
 }
 
 export default function Education({ cvData, setCvData }) {
+  const [formData, setFormData] = useState({
+    university: "",
+    location: "",
+    course: "",
+    grade: "",
+    startMonth: "",
+    startYear: "",
+    endMonth: "",
+    endYear: "",
+  });
   const [showForm, setShowForm] = useState(false);
   const [nextId, setNextId] = useState(1);
 
@@ -225,6 +226,8 @@ export default function Education({ cvData, setCvData }) {
           <EducationForm
             setShowForm={setShowForm}
             onFormAdd={addEducationForm}
+            formData={formData}
+            setFormData={setFormData}
           />
         ) : null}
       </div>
