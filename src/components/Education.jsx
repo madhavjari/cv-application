@@ -34,7 +34,16 @@ function FormData({ details }) {
   );
 }
 
-function EducationFormRender({ educationForm, setCvData }) {
+function EditEducation({ formData }) {
+  return (
+    <>
+      <EducationDetails formData={form.details} />
+    </>
+  );
+}
+
+function EducationFormRender({ educationForm }) {
+  const [edit, setEdit] = useState(false);
   return (
     <>
       {educationForm.map((form) => {
@@ -43,7 +52,8 @@ function EducationFormRender({ educationForm, setCvData }) {
             <li key={form.id}>
               <FormData details={form.details} />
             </li>
-            <button>Edit</button>
+            <button onClick={() => editButton(setEdit)}>Edit</button>
+            {edit ? <EditEducation formData={form.details} /> : null}
           </>
         );
       })}
@@ -51,34 +61,15 @@ function EducationFormRender({ educationForm, setCvData }) {
   );
 }
 
-function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onFormAdd(formData);
-    resetEducationForm();
-  };
+function editButton(setEdit) {
+  setEdit(true);
+  const addEducation = document.querySelector(".add-education");
+  addEducation.disabled = true;
+}
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const resetEducationForm = () => {
-    setFormData({
-      university: "",
-      location: "",
-      course: "",
-      grade: "",
-      startMonth: "",
-      startYear: "",
-      endMonth: "",
-      endYear: "",
-    });
-    setShowForm(false);
-  };
-
+function EducationDetails({ formData, handleChange }) {
   return (
-    <form onSubmit={handleSubmit} autoComplete="on">
+    <>
       <label htmlFor="university">
         <h3>University/School* :</h3>
       </label>
@@ -181,6 +172,39 @@ function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
           </option>
         ))}
       </select>
+    </>
+  );
+}
+
+function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFormAdd(formData);
+    resetEducationForm();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const resetEducationForm = () => {
+    setFormData({
+      university: "",
+      location: "",
+      course: "",
+      grade: "",
+      startMonth: "",
+      startYear: "",
+      endMonth: "",
+      endYear: "",
+    });
+    setShowForm(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} autoComplete="on">
+      <EducationDetails handleChange={handleChange} formData={formData} />
       <button type="submit">Add</button>
       <button type="reset" onClick={resetEducationForm}>
         Reset and close
@@ -200,6 +224,7 @@ export default function Education({ cvData, setCvData }) {
     endMonth: "",
     endYear: "",
   });
+
   const [showForm, setShowForm] = useState(false);
   const [nextId, setNextId] = useState(1);
 
@@ -218,9 +243,15 @@ export default function Education({ cvData, setCvData }) {
     <>
       <h2>Education</h2>
       <div className="form">
-        <button onClick={formAdd}>Add Education</button>
+        <button onClick={formAdd} className="add-education">
+          Add Education
+        </button>
         {cvData.education.length !== 0 ? (
-          <EducationFormRender educationForm={cvData.education} />
+          <EducationFormRender
+            educationForm={cvData.education}
+            setEducationForm={setCvData}
+            setShowForm={setShowForm}
+          />
         ) : null}
         {showForm ? (
           <EducationForm
