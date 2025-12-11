@@ -25,19 +25,9 @@ for (let i = currentYear; i >= startYear; i--) {
   years.push(i);
 }
 
-function EducationFormRender({ educationForm, setCvData }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setCvData((prev) => ({
-      ...prev,
-      education: prev.education.map((item) =>
-        item.id === editedForm.id ? editedForm : item
-      ),
-    }));
-    setEdit(false);
-    setEditedForm(null);
-  };
-
+function EducationItem({ form, onDelete, onUpdate }) {
+  const [editedForm, setEditedForm] = useState(form);
+  const [edit, setEdit] = useState(false);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setEditedForm((prevData) => ({
@@ -49,48 +39,68 @@ function EducationFormRender({ educationForm, setCvData }) {
     }));
   };
 
-  const deleteForm = (id) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onUpdate(editedForm);
+    setEdit(false);
+  };
+  return (
+    <>
+      <h3>{form.details.university}</h3>
+      <h3>{form.details.course}</h3>
+      <button
+        onClick={() => {
+          setEdit(true);
+        }}
+      >
+        Edit
+      </button>
+      <button onClick={() => onDelete(form.id)}>Delete</button>
+      {edit ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <EducationDetails
+              formData={editedForm.details}
+              handleChange={handleChange}
+            />
+            <button type="submit">Save</button>
+            <button type="reset" onClick={() => setEdit(false)}>
+              Cancel
+            </button>
+          </form>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function EducationFormRender({ educationForm, setCvData }) {
+  const updateItem = (form) => {
+    setCvData((prev) => ({
+      ...prev,
+      education: prev.education.map((item) =>
+        item.id === form.id ? form : item
+      ),
+    }));
+  };
+
+  const deleteItem = (id) => {
     setCvData((prevData) => ({
       ...prevData,
       education: prevData.education.filter((item) => item.id !== id),
     }));
   };
 
-  const [editedForm, setEditedForm] = useState(null);
-  const [edit, setEdit] = useState(false);
   return (
     <>
       {educationForm.map((form) => {
         return (
-          <>
-            <li key={form.id}>
-              <h3>{form.details.university}</h3>
-              <h3>{form.details.course}</h3>
-            </li>
-            <button
-              onClick={() => {
-                setEdit(true);
-                setEditedForm(form);
-              }}
-            >
-              Edit
-            </button>
-            <button onClick={() => deleteForm(form.id)}>Delete</button>
-            {edit && editedForm.id === form.id ? (
-              <>
-                <form onSubmit={handleSubmit}>
-                  <EducationDetails
-                    formData={editedForm.details}
-                    handleChange={handleChange}
-                  />
-                  <button type="submit">Save</button>
-                  <button type="reset" onClick={() => setEdit(false)}>
-                    Cancel
-                  </button>
-                </form>
-              </>
-            ) : null}
-          </>
+          <EducationItem
+            key={form.id}
+            form={form}
+            onDelete={deleteItem}
+            onUpdate={updateItem}
+          />
         );
       })}
     </>
@@ -280,7 +290,6 @@ export default function Education({ cvData, setCvData }) {
           <EducationFormRender
             educationForm={cvData.education}
             setCvData={setCvData}
-            setShowForm={setShowForm}
           />
         ) : null}
         {showForm ? (
