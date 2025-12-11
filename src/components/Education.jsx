@@ -25,24 +25,38 @@ for (let i = currentYear; i >= startYear; i--) {
   years.push(i);
 }
 
-function FormData({ details }) {
-  return (
-    <>
-      <h3>{details.university}</h3>
-      <h3>{details.course}</h3>
-    </>
-  );
-}
+function EducationFormRender({ educationForm, setCvData }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setCvData((prev) => ({
+      ...prev,
+      education: prev.education.map((item) =>
+        item.id === editedForm.id ? editedForm : item
+      ),
+    }));
+    setEdit(false);
+    setEditedForm(null);
+  };
 
-function EditEducation({ formData }) {
-  return (
-    <>
-      <EducationDetails formData={form.details} />
-    </>
-  );
-}
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setEditedForm((prevData) => ({
+      ...prevData,
+      details: {
+        ...prevData.details,
+        [name]: value,
+      },
+    }));
+  };
 
-function EducationFormRender({ educationForm }) {
+  const deleteForm = (id) => {
+    setCvData((prevData) => ({
+      ...prevData,
+      education: prevData.education.filter((item) => item.id !== id),
+    }));
+  };
+
+  const [editedForm, setEditedForm] = useState(null);
   const [edit, setEdit] = useState(false);
   return (
     <>
@@ -50,21 +64,37 @@ function EducationFormRender({ educationForm }) {
         return (
           <>
             <li key={form.id}>
-              <FormData details={form.details} />
+              <h3>{form.details.university}</h3>
+              <h3>{form.details.course}</h3>
             </li>
-            <button onClick={() => editButton(setEdit)}>Edit</button>
-            {edit ? <EditEducation formData={form.details} /> : null}
+            <button
+              onClick={() => {
+                setEdit(true);
+                setEditedForm(form);
+              }}
+            >
+              Edit
+            </button>
+            <button onClick={() => deleteForm(form.id)}>Delete</button>
+            {edit && editedForm.id === form.id ? (
+              <>
+                <form onSubmit={handleSubmit}>
+                  <EducationDetails
+                    formData={editedForm.details}
+                    handleChange={handleChange}
+                  />
+                  <button type="submit">Save</button>
+                  <button type="reset" onClick={() => setEdit(false)}>
+                    Cancel
+                  </button>
+                </form>
+              </>
+            ) : null}
           </>
         );
       })}
     </>
   );
-}
-
-function editButton(setEdit) {
-  setEdit(true);
-  const addEducation = document.querySelector(".add-education");
-  addEducation.disabled = true;
 }
 
 function EducationDetails({ formData, handleChange }) {
@@ -249,7 +279,7 @@ export default function Education({ cvData, setCvData }) {
         {cvData.education.length !== 0 ? (
           <EducationFormRender
             educationForm={cvData.education}
-            setEducationForm={setCvData}
+            setCvData={setCvData}
             setShowForm={setShowForm}
           />
         ) : null}
