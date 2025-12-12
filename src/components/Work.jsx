@@ -24,67 +24,89 @@ for (let i = currentYear; i >= startYear; i--) {
   years.push(i);
 }
 
-function FormData({ details }) {
+function WorkItem({ form, onDelete, onUpdate }) {
+  const [editedForm, setEditedForm] = useState(form);
+  const [edit, setEdit] = useState(false);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setEditedForm((prevData) => ({
+      ...prevData,
+      details: {
+        ...prevData.details,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onUpdate(editedForm);
+    setEdit(false);
+  };
   return (
     <>
-      {Object.entries(details).map(([key, value]) => {
-        return <li key={key}>{key + ": " + value}</li>;
-      })}
+      <h3>{form.details.company}</h3>
+      <h3>{form.details.title}</h3>
+      <button
+        onClick={() => {
+          setEdit(true);
+        }}
+      >
+        Edit
+      </button>
+      <button onClick={() => onDelete(form.id)}>Delete</button>
+      {edit ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <WorkDetails
+              formData={editedForm.details}
+              handleChange={handleChange}
+            />
+            <button type="submit">Save</button>
+            <button type="reset" onClick={() => setEdit(false)}>
+              Cancel
+            </button>
+          </form>
+        </>
+      ) : null}
     </>
   );
 }
 
-function WorkFormRender({ workData }) {
+function WorkFormRender({ workForm, setCvData }) {
+  const updateItem = (form) => {
+    setCvData((prev) => ({
+      ...prev,
+      work: prev.work.map((item) => (item.id === form.id ? form : item)),
+    }));
+  };
+
+  const deleteItem = (id) => {
+    setCvData((prevData) => ({
+      ...prevData,
+      work: prevData.work.filter((item) => item.id !== id),
+    }));
+  };
+
   return (
     <>
-      {workData.map((form) => {
+      {workForm.map((form) => {
         return (
-          <ul key={form.id}>
-            <FormData details={form.details} />
-          </ul>
+          <WorkItem
+            key={form.id}
+            form={form}
+            onDelete={deleteItem}
+            onUpdate={updateItem}
+          />
         );
       })}
     </>
   );
 }
 
-function WorkForm({ setShowForm, onFormAdd }) {
-  const [formData, setFormData] = useState({
-    company: "",
-    location: "",
-    title: "",
-    description: "",
-    startMonth: "",
-    startYear: "",
-    endMonth: "",
-    endYear: "",
-  });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onFormAdd(formData);
-    resetWorkForm();
-  };
-
-  const resetWorkForm = () => {
-    setShowForm(false);
-    setFormData({
-      company: "",
-      location: "",
-      title: "",
-      description: "",
-      startMonth: "",
-      startYear: "",
-      endMonth: "",
-      endYear: "",
-    });
-  };
+function WorkDetails({ formData, handleChange }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <label htmlFor="company">
         <h3>Company* :</h3>
       </label>
@@ -193,6 +215,48 @@ function WorkForm({ setShowForm, onFormAdd }) {
           </option>
         ))}
       </select>
+    </>
+  );
+}
+
+function WorkForm({ setShowForm, onFormAdd }) {
+  const [formData, setFormData] = useState({
+    company: "",
+    location: "",
+    title: "",
+    description: "",
+    startMonth: "",
+    startYear: "",
+    endMonth: "",
+    endYear: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onFormAdd(formData);
+    resetWorkForm();
+  };
+
+  const resetWorkForm = () => {
+    setShowForm(false);
+    setFormData({
+      company: "",
+      location: "",
+      title: "",
+      description: "",
+      startMonth: "",
+      startYear: "",
+      endMonth: "",
+      endYear: "",
+    });
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <WorkDetails formData={formData} handleChange={handleChange} />
       <button type="submit">Add</button>
       <button type="reset" onClick={resetWorkForm}>
         Reset and close
@@ -223,7 +287,7 @@ export default function WorkExperience({ cvData, setCvData }) {
       <div className="form"></div>
       <button onClick={formShow}>Add Work Experience</button>
       {cvData.work.length > 0 ? (
-        <WorkFormRender workData={cvData.work} />
+        <WorkFormRender workForm={cvData.work} setCvData={setCvData} />
       ) : null}
       {showForm ? (
         <WorkForm setShowForm={setShowForm} onFormAdd={addWorkForm} />

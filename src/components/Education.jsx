@@ -216,7 +216,18 @@ function EducationDetails({ formData, handleChange }) {
   );
 }
 
-function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
+function EducationForm({ setShowForm, onFormAdd }) {
+  const [formData, setFormData] = useState({
+    university: "",
+    location: "",
+    course: "",
+    grade: "",
+    startMonth: "",
+    startYear: "",
+    endMonth: "",
+    endYear: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     onFormAdd(formData);
@@ -254,17 +265,6 @@ function EducationForm({ setShowForm, onFormAdd, formData, setFormData }) {
 }
 
 export default function Education({ cvData, setCvData }) {
-  const [formData, setFormData] = useState({
-    university: "",
-    location: "",
-    course: "",
-    grade: "",
-    startMonth: "",
-    startYear: "",
-    endMonth: "",
-    endYear: "",
-  });
-
   const [showForm, setShowForm] = useState(false);
   const [nextId, setNextId] = useState(1);
 
@@ -296,8 +296,6 @@ export default function Education({ cvData, setCvData }) {
           <EducationForm
             setShowForm={setShowForm}
             onFormAdd={addEducationForm}
-            formData={formData}
-            setFormData={setFormData}
           />
         ) : null}
       </div>
