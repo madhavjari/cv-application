@@ -72,7 +72,7 @@ function ListRender({ items }) {
       {items.map((item) => {
         return (
           <h3>
-            <li key={item.id}>{item}</li>
+            <li key={item.id}>{item.detail}</li>
           </h3>
         );
       })}

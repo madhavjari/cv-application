@@ -1,11 +1,81 @@
 import { useState } from "react";
 
-function LanguageList({ languages }) {
+function LanguageRender({ languages, setCvData }) {
+  const updateItem = (form) => {
+    setCvData((prev) => ({
+      ...prev,
+      languages: prev.languages.map((item) =>
+        item.id === form.id ? form : item
+      ),
+    }));
+  };
+
+  const deleteItem = (id) => {
+    setCvData((prevData) => ({
+      ...prevData,
+      languages: prevData.languages.filter((item) => item.id !== id),
+    }));
+  };
   return (
     <>
-      {languages.map((language) => {
-        return <li key={language.id}>{language}</li>;
+      {languages.map((form) => {
+        return (
+          <LanguageItem
+            key={form.id}
+            form={form}
+            onDelete={deleteItem}
+            onUpdate={updateItem}
+          />
+        );
       })}
+    </>
+  );
+}
+
+function LanguageItem({ form, onDelete, onUpdate }) {
+  const [editedForm, setEditedForm] = useState(form);
+  const [edit, setEdit] = useState(false);
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setEditedForm((prevData) => ({
+      ...prevData,
+      detail: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onUpdate(editedForm);
+    setEdit(false);
+  };
+  return (
+    <>
+      <h3>{form.detail}</h3>
+      <button
+        onClick={() => {
+          setEdit(true);
+        }}
+      >
+        Edit
+      </button>
+      <button onClick={() => onDelete(form.id)}>Delete</button>
+      {edit ? (
+        <>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              id="language"
+              placeholder="Add a language"
+              value={editedForm.detail}
+              onChange={handleChange}
+            />
+            <button type="submit">Save</button>
+            <button type="reset" onClick={() => setEdit(false)}>
+              Cancel
+            </button>
+          </form>
+        </>
+      ) : null}
     </>
   );
 }
@@ -14,10 +84,10 @@ export default function Language({ cvData, setCvData }) {
   const [showForm, setShowForm] = useState(false);
   const [nextId, setNextId] = useState(1);
 
-  const handleLanguageChange = (language) => {
+  const handleChange = (language) => {
     setCvData((prevData) => ({
       ...prevData,
-      languages: [...prevData.languages, language],
+      languages: [...prevData.languages, { id: nextId, detail: language }],
     }));
     setNextId(nextId + 1);
     setShowForm(false);
@@ -32,16 +102,16 @@ export default function Language({ cvData, setCvData }) {
       <h2>Language</h2>
       <button onClick={showFormChange}>Add a Language</button>
       {cvData.languages.length !== 0 ? (
-        <LanguageList languages={cvData.languages} />
+        <LanguageRender languages={cvData.languages} setCvData={setCvData} />
       ) : null}
-      {showForm ? <LanguageForm onAddLanguage={handleLanguageChange} /> : null}
+      {showForm ? <LanguageForm onAddLanguage={handleChange} /> : null}
     </>
   );
 }
 
 function LanguageForm({ onAddLanguage }) {
   const [language, setLanguage] = useState("");
-  const handleLanguageChange = (event) => {
+  const handleChange = (event) => {
     setLanguage(event.target.value);
   };
 
@@ -62,7 +132,7 @@ function LanguageForm({ onAddLanguage }) {
           id="language"
           placeholder="Add a language"
           value={language}
-          onChange={handleLanguageChange}
+          onChange={handleChange}
         />
         <button type="submit">Add</button>
       </form>
