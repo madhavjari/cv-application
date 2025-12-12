@@ -1,16 +1,22 @@
-# React + Vite
+📄 CV Builder Application
+A sleek, responsive, and easy-to-use Curriculum Vitae (CV) and Resume generator built with React. Users can dynamically add, edit, and delete sections like Education, Experience, and Skills, and then export the final result.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+Dynamic Data Entry: Add multiple entries for sections (e.g., multiple jobs, languages, schools).
 
-Currently, two official plugins are available:
+Live Preview: See real-time updates as you edit your information.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Edit and Delete: Easily modify or remove any existing entry.
 
-## React Compiler
+State Management: Efficient management of the entire CV data structure using React Hooks (useState).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Component-Driven UI: Modular and maintainable code structure using reusable React components.
 
-## Expanding the ESLint configuration
+🚀 Technologies Used
+React: For building the user interface.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Vite (or Create React App): For fast development and bundling.
+
+Material UI (MUI): (Implied by the icon imports) For polished, ready-to-use UI components and icons.
+
+CSS
