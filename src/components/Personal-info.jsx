@@ -77,7 +77,7 @@ export default function Personal({ cvData, setCvData }) {
           <option value=""></option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="">Prefer not to respond</option>
+          <option value="Prefet not to respond">Prefer not to respond</option>
         </select>
         <label htmlFor="address">
           <h3>Address :</h3>

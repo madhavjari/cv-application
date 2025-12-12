@@ -106,7 +106,10 @@ export default function CvPreview({ cvData }) {
         <h4>
           {cvData.personal.currentCity ? cvData.personal.currentCity : ""}
         </h4>
-        {cvData.personal.gender ? <h4>{cvData.personal.gender}</h4> : null}
+        {cvData.personal.gender === "Male" ||
+        cvData.personal.gender === "Female" ? (
+          <h4>{cvData.personal.gender}</h4>
+        ) : null}
       </div>
       <article>
         <div className="education">
