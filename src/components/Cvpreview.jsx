@@ -3,7 +3,7 @@ function WorkRender({ workData }) {
     <>
       {workData.map((form) => {
         return (
-          <div className="work-render">
+          <div className="list-render">
             <h3>{form.details.title}</h3>
             <div className="company-details">
               <h3>
@@ -37,7 +37,7 @@ function EducationRender({ educationData }) {
     <>
       {educationData.map((form) => {
         return (
-          <div className="education-render">
+          <div className="list-render">
             <h3>{form.details.course}</h3>
             <div className="university-details">
               <h3>
@@ -68,7 +68,7 @@ function EducationRender({ educationData }) {
 
 function ListRender({ items }) {
   return (
-    <ul>
+    <ul className="list-render">
       {items.map((item) => {
         return (
           <h3>
@@ -97,9 +97,7 @@ export default function CvPreview({ cvData }) {
         </h3>
       </div>
       <div className="cv-navbar">
-        <h4>
-          {cvData.personal.phone ? cvData.personal.phone : "xx-xxxxxxxxx"}
-        </h4>
+        <h4>{cvData.personal.phone ? cvData.personal.phone : "xxxxxxxxx"}</h4>
         <h4>
           {cvData.personal.email ? cvData.personal.email : "xxxxxxxxx@xxx.com"}
         </h4>
@@ -112,17 +110,17 @@ export default function CvPreview({ cvData }) {
         ) : null}
       </div>
       <article>
-        <div className="education">
+        <div className="list-render">
           <h2>Education</h2>
           <div className="line"></div>
           <EducationRender educationData={cvData.education} />
         </div>
-        <div className="work">
+        <div className="list-render">
           <h2>Work Experience</h2>
           <div className="line"></div>
           <WorkRender workData={cvData.work} />
         </div>
-        <div className="skills">
+        <div className="list-render">
           <h2>Skills</h2>
           <div className="line"></div>
           <h3>Technical Skills</h3>
@@ -131,15 +129,15 @@ export default function CvPreview({ cvData }) {
           <ListRender items={cvData.softSkills} />
         </div>
 
-        <div className="languages">
+        <div className="list-render">
           <h2>Languages</h2>
           <div className="line"></div>
           <ListRender items={cvData.languages} />
         </div>
-        <div className="personal-address">
+        <div className="list-render">
           <h2>Address for communication</h2>
           <div className="line"></div>
-          <h3>{cvData.personal.address}</h3>
+          <h3 className="light-font">{cvData.personal.address}</h3>
         </div>
       </article>
     </>

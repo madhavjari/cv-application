@@ -1,5 +1,6 @@
 import { useState } from "react";
-import CvPreview from "./Cvpreview";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const months = [
   { value: "01", label: "January" },
@@ -46,16 +47,23 @@ function EducationItem({ form, onDelete, onUpdate }) {
   };
   return (
     <>
-      <h3>{form.details.university}</h3>
-      <h3>{form.details.course}</h3>
-      <button
-        onClick={() => {
-          setEdit(true);
-        }}
-      >
-        Edit
-      </button>
-      <button onClick={() => onDelete(form.id)}>Delete</button>
+      <div className="content-render">
+        <h3>University: {form.details.university}</h3>
+        <div>
+          <EditIcon
+            className="change-button"
+            aria-label="edit"
+            onClick={() => {
+              setEdit(true);
+            }}
+          />
+          <DeleteIcon
+            className="change-button"
+            aria-label="delete"
+            onClick={() => onDelete(form.id)}
+          />
+        </div>
+      </div>
       {edit ? (
         <>
           <form onSubmit={handleSubmit}>

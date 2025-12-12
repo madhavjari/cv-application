@@ -1,4 +1,6 @@
 import { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const months = [
   { value: "01", label: "January" },
@@ -45,16 +47,23 @@ function WorkItem({ form, onDelete, onUpdate }) {
   };
   return (
     <>
-      <h3>{form.details.company}</h3>
-      <h3>{form.details.title}</h3>
-      <button
-        onClick={() => {
-          setEdit(true);
-        }}
-      >
-        Edit
-      </button>
-      <button onClick={() => onDelete(form.id)}>Delete</button>
+      <div className="content-render">
+        <h3>Company: {form.details.company}</h3>
+        <div>
+          <EditIcon
+            className="change-button"
+            aria-label="edit"
+            onClick={() => {
+              setEdit(true);
+            }}
+          />
+          <DeleteIcon
+            className="change-button"
+            aria-label="delete"
+            onClick={() => onDelete(form.id)}
+          />
+        </div>
+      </div>
       {edit ? (
         <>
           <form onSubmit={handleSubmit}>
