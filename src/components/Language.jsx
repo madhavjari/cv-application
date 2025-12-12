@@ -70,7 +70,13 @@ function LanguageItem({ form, onDelete, onUpdate }) {
               onChange={handleChange}
             />
             <button type="submit">Save</button>
-            <button type="reset" onClick={() => setEdit(false)}>
+            <button
+              type="button"
+              onClick={() => {
+                setEditedForm(form);
+                setEdit(false);
+              }}
+            >
               Cancel
             </button>
           </form>
