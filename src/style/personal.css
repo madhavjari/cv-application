@@ -23,6 +23,20 @@ button {
   border: none;
 }
 
+.content-render {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-render > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.change-button {
+  cursor: pointer;
+}
+
 input:focus {
   border: rgb(16, 16, 180) solid 3px;
   outline: none;

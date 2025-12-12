@@ -1,4 +1,6 @@
 import { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 function LanguageRender({ languages, setCvData }) {
   const updateItem = (form) => {
@@ -50,15 +52,23 @@ function LanguageItem({ form, onDelete, onUpdate }) {
   };
   return (
     <>
-      <h3>{form.detail}</h3>
-      <button
-        onClick={() => {
-          setEdit(true);
-        }}
-      >
-        Edit
-      </button>
-      <button onClick={() => onDelete(form.id)}>Delete</button>
+      <div className="content-render">
+        <h3>{form.detail}</h3>
+        <div>
+          <EditIcon
+            className="change-button"
+            aria-label="edit"
+            onClick={() => {
+              setEdit(true);
+            }}
+          />
+          <DeleteIcon
+            className="change-button"
+            aria-label="delete"
+            onClick={() => onDelete(form.id)}
+          />
+        </div>
+      </div>
       {edit ? (
         <>
           <form onSubmit={handleSubmit}>
