@@ -17,12 +17,8 @@ export default function App() {
     softSkills: [],
     languages: [],
   });
-  const sectionStyle = {
-    display: "flex",
-    justifyContent: "center",
-  };
   return (
-    <section style={sectionStyle}>
+    <section>
       <div className="input">
         <h1>Input</h1>
         <div className="input-forms">

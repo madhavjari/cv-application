@@ -10,11 +10,10 @@ select {
   border-radius: 0.5rem;
   border: black solid 3px;
   padding: 0.5rem;
-  height: 3.5rem;
-  gap: 1rem;
   font-size: 1.5rem;
   font-weight: 400;
   transition: border-color 0.4s ease-in-out;
+  min-width: 0px;
 }
 
 button {

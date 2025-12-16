@@ -1,9 +1,24 @@
-.input {
-  width: 40%;
+@media screen and (max-width: 600px) {
+  .input,
+  .output {
+    min-width: 100%;
+  }
 }
 
-.output {
-  width: 60%;
+section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 2000px) {
+  .input {
+    width: 40%;
+  }
+
+  .output {
+    width: 60%;
+  }
 }
 
 .input-forms,
@@ -14,7 +29,6 @@
   border-radius: 0.5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
   border: black solid 1px;
-  box-sizing: border-box;
 }
 
 .line {
@@ -25,7 +39,7 @@
 }
 
 .input-forms {
-  padding: 3rem;
+  padding: 2rem;
   gap: 1rem;
 }
 
